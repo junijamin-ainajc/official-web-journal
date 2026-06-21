@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>麻将胡了 · 简明指南与访问提醒</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f2f4f6;
+      color: #2c3e4f;
+      line-height: 1.6;
+      padding: 2rem 1.5rem;
+    }
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* hero 区 */
+    .hero {
+      background: linear-gradient(145deg, #eef0f2, #f8fafc);
+      padding: 2.8rem 2.5rem;
+      border-radius: 32px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.02);
+      margin-bottom: 2.5rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: #1d2b39;
+      margin-bottom: 0.6rem;
+    }
+    .hero p {
+      max-width: 640px;
+      margin: 0.4rem auto 0;
+      color: #3f5568;
+      font-weight: 350;
+      font-size: 1.1rem;
+    }
+
+    /* 卡片通用 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    @media (min-width: 680px) {
+      .card-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.8rem 1.8rem 2rem;
+      border: 1px solid #e7eaed;
+      box-shadow: 0 6px 12px -6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.02);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 10px 18px -8px rgba(0,0,0,0.07);
+      transform: translateY(-1px);
+    }
+    .card h3 {
+      font-size: 1.35rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      border-bottom: 2px solid #dce2e8;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      color: #1d2b39;
+    }
+    .card ul, .card p {
+      margin-bottom: 0.8rem;
+    }
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .card li {
+      padding: 0.35rem 0 0.35rem 1.2rem;
+      position: relative;
+    }
+    .card li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: #5b7f9c;
+    }
+
+    /* 宽卡片 / 自然链接段落 */
+    .full-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2.2rem;
+      border: 1px solid #e7eaed;
+      box-shadow: 0 6px 12px -6px rgba(0,0,0,0.03);
+      margin: 2rem 0;
+    }
+    .full-card h2 {
+      font-weight: 450;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #1d2b39;
+      letter-spacing: 0.2px;
+    }
+    .full-card p {
+      margin-bottom: 1rem;
+    }
+    .link-embed {
+      color: #2c5f7e;
+      text-decoration: none;
+      border-bottom: 1px dotted #95b4cb;
+      transition: border 0.2s, color 0.2s;
+    }
+    .link-embed:hover {
+      color: #1a4159;
+      border-bottom: 1px solid #2c5f7e;
+    }
+
+    /* faq 摘要区 */
+    .faq-mini {
+      background: #f8fafb;
+      border-radius: 20px;
+      padding: 1.6rem 2rem;
+      border: 1px solid #e2e7ec;
+      margin: 2rem 0 1rem;
+    }
+    .faq-mini h4 {
+      font-weight: 500;
+      font-size: 1.2rem;
+      color: #1d2b39;
+      margin-bottom: 0.8rem;
+    }
+    .faq-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #e7ebef;
+    }
+    .faq-item:last-of-type {
+      border-bottom: none;
+    }
+    .faq-q {
+      font-weight: 500;
+      min-width: 100px;
+      color: #2f4a60;
+      margin-right: 0.8rem;
+    }
+    .faq-a {
+      color: #3f5568;
+      flex: 1;
+    }
+
+    /* 提醒条 */
+    .reminder {
+      background: #ecf0f3;
+      border-radius: 30px;
+      padding: 1.2rem 2rem;
+      margin: 2.5rem 0 1.8rem;
+      border-left: 5px solid #a0b9ce;
+      font-size: 0.95rem;
+      color: #2b4155;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .reminder strong {
+      font-weight: 500;
+      color: #1d2b39;
+    }
+
+    /* 底部 */
+    .footer-note {
+      border-top: 1px solid #dce2e8;
+      margin-top: 2.8rem;
+      padding-top: 1.4rem;
+      text-align: center;
+      color: #6e849b;
+      font-size: 0.85rem;
+      letter-spacing: 0.3px;
+    }
+
+    /* 响应式微调 */
+    @media (max-width: 480px) {
+      body { padding: 1.2rem 0.8rem; }
+      .hero { padding: 1.8rem 1.2rem; }
+      .full-card { padding: 1.5rem 1.2rem; }
+      .faq-mini { padding: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- hero -->
+  <div class="hero">
+    <h1>麻将胡了 · 简明指南</h1>
+    <p>一处了解玩法、场景与访问提醒，让每一次开始都更从容。</p>
+  </div>
+
+  <!-- 信息卡片网格 -->
+  <div class="card-grid">
+    <div class="card">
+      <h3>🎯 主视觉 · 玩法速览</h3>
+      <p>传统麻将的乐趣在于组合与判断，而「胡牌」是每一局最直接的成就感来源。从手牌搭配到听牌策略，节奏明快又不失思考空间。无论是国标、川麻还是其他变体，核心乐趣始终围绕牌型效率与临场决策。</p>
+      <p style="margin-top: 0.6rem;">如果你希望快速上手，可以先熟悉基本番型与简单算番，再逐步探索更多规则细节。</p>
+    </div>
+    <div class="card">
+      <h3>🧩 用途场景</h3>
+      <ul>
+        <li>朋友小聚时的轻松娱乐</li>
+        <li>在线练习算牌、反应与策略</li>
+        <li>作为闲暇时光的思维调剂</li>
+        <li>与家人、同事保持适度互动</li>
+      </ul>
+      <p style="margin-top: 0.3rem;">无论线下还是线上，麻将都是一种社交与脑力并重的选择。</p>
+    </div>
+    <div class="card">
+      <h3>👥 适合人群</h3>
+      <ul>
+        <li>对麻将规则好奇的新手</li>
+        <li>已有基础、想提升判断的玩家</li>
+        <li>重视休闲氛围的轻度用户</li>
+        <li>希望找到稳定对局环境的爱好者</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📌 访问提醒</h3>
+      <p>请通过安全网络访问，确保设备与账号信息保管得当。建议设置合理的娱乐时间，避免长时间连续操作。如遇页面加载或规则疑问，可先查阅帮助说明。</p>
+    </div>
+  </div>
+
+  <!-- 自然链接段落（宽卡片） -->
+  <div class="full-card">
+    <h2>关于 <a href="https://official-web-mahjong.com" class="link-embed">麻将胡了</a> 的一些补充</h2>
+    <p>该平台以麻将为主题，提供在线对局与规则参考。无论你是想熟悉基本胡牌方式，还是希望找一个节奏合适的练习环境，都可以在站内找到相应功能。页面设计偏向清晰直观，对新手友好。</p>
+    <p>在使用前，建议花几分钟浏览其介绍或常见问题，这样能更快理解界面布局与计分逻辑。同时，由于网络环境差异，偶尔可能出现加载延迟，稍等或刷新即可恢复。</p>
+  </div>
+
+  <!-- FAQ 摘要 -->
+  <div class="faq-mini">
+    <h4>💬 一些常见疑问</h4>
+    <div class="faq-item">
+      <span class="faq-q">需要注册吗？</span>
+      <span class="faq-a">通常需要简单创建账号，用于保存进度与对局记录。具体以站内指引为准。</span>
+    </div>
+    <div class="faq-item">
+      <span class="faq-q">有新手教程吗？</span>
+      <span class="faq-a">站内提供基础规则介绍和牌型说明，可快速了解胡牌条件与番种。</span>
+    </div>
+    <div class="faq-item">
+      <span class="faq-q">是否支持多端？</span>
+      <span class="faq-a">大部分现代浏览器均可直接使用，移动端与桌面布局自适应。</span>
+    </div>
+  </div>
+
+  <!-- 提醒条 -->
+  <div class="reminder">
+    <strong>🔔 温和提醒：</strong>
+    <span>娱乐有度，量力而行。麻将胡了适合休闲放松，请合理安排时间，享受过程而非结果。</span>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer-note">
+    记录于 2025 · 页面内容仅供信息参考，不构成任何诱导或承诺。
+  </div>
+</div>
+</body>
+</html>
